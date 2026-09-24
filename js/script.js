@@ -1,6 +1,6 @@
 //NAME FIELD
 const name = document.getElementById('name');
-name.focus()
+name.focus();
 
 //JOB ROLE SECTION
 const title = document.getElementById('title');
@@ -9,7 +9,7 @@ const otherJobRole = document.getElementById('other-job-role');
 otherJobRole.style.display = 'none';
 
 title.addEventListener('change', e => {
-    const targetValue = e.target.value
+    const targetValue = e.target.value;
     if (targetValue === 'other') {
         otherJobRole.style.display = 'inline-block';
     } else {
@@ -21,12 +21,12 @@ title.addEventListener('change', e => {
 const design = document.getElementById('design');
 const color = document.getElementById('color');
 //referencing the children property of Color
-const colorOptions = color.children
+const colorOptions = color.children;
 
 color.disabled = true;
 design.addEventListener('change', e => {
     color.disabled = false;
-    for (let i = 0; i < colorOptions.length;i++) {
+    for (let i = 0; i < colorOptions.length; i++) {
         const eventValue = e.target.value;
         const colorData = colorOptions[i].getAttribute('data-theme');
         if (eventValue === colorData) {
@@ -49,9 +49,9 @@ activities.addEventListener('change', e => {
     const dataCost = parseInt(e.target.getAttribute('data-cost'), 10);
     
     if (e.target.checked) {
-        calculatedTotal += dataCost
+        calculatedTotal += dataCost;
     } else {
-        calculatedTotal -= dataCost
+        calculatedTotal -= dataCost;
     }
     total.innerHTML = `Total: $${calculatedTotal}`;
 
@@ -102,7 +102,7 @@ function emailValidator() {
 //creating a helper function to test checkbox activity
 function activitiesValidator() {
     let activitiesIsValid = false;
-    for (let i = 0; i < activityCheckboxes.length;i++) {
+    for (let i = 0; i < activityCheckboxes.length; i++) {
         if (activityCheckboxes[i].checked) {
             activitiesIsValid = true;
         }
@@ -132,34 +132,52 @@ function cvvValidator() {
 form.addEventListener('submit', e => {
     //NAME
     if (!nameValidator()) {
+        validationFail(name);
         e.preventDefault();
+    } else {
+        validationPass(name);
     }
     //EMAIL
     if (!emailValidator()) {
+        validationFail(email);
         e.preventDefault();
+    } else {
+        validationPass(email);
     }
     //ACTIVIITES
-    if(!activitiesValidator()) {
+    if (!activitiesValidator()) {
+        validationFail(activities);
         e.preventDefault();
+    } else {
+        validationPass(activities);
     }
+    //CREDIT CARD
     if (paymentOptions.value === 'credit-card') {
-        //CREDIT CARD
         if (!cardNumberValidator()) {
+            validationFail(cardNumber);
             e.preventDefault();
+        } else {
+            validationPass(cardNumber);
         }
         //ZIPCODE
         if (!zipCodeValidator()) {
+            validationFail(zipCode);
             e.preventDefault();
-        //CVV
+        } else {
+            validationPass(zipCode);
         }
+        //CVV
         if (!cvvValidator()) {
+            validationFail(cvv);
             e.preventDefault();
+        } else {
+            validationPass(cvv);
         }
     }
 });
 
 //ACCESSIBILITY
-for (let i = 0; i < activityCheckboxes.length;i++) {
+for (let i = 0; i < activityCheckboxes.length; i++) {
     activityCheckboxes[i].addEventListener('focus', e => {
         e.target.parentNode.classList.add('focus');
     });
@@ -167,4 +185,16 @@ for (let i = 0; i < activityCheckboxes.length;i++) {
         e.target.parentNode.classList.remove('focus');
     
     });
+}
+//helper functions
+function validationPass(element) {
+    element.parentNode.classList.add('valid');
+    element.parentNode.classList.remove('not-valid');
+    element.parentNode.lastElementChild.style.display = 'none';
+}
+
+function validationFail(element) {
+    element.parentNode.classList.add('not-valid');
+    element.parentNode.classList.remove('valid');
+    element.parentNode.lastElementChild.style.display = 'block';
 }
