@@ -95,3 +95,5 @@ payPal.style.display = 'none';
 const bitcoin = document.getElementById("bitcoin");
 //keep it hidden
 bitcoin.style.display = 'none';
+//setting credit card as default option
+paymentOptions.children[1].setAttribute("selected", "");
