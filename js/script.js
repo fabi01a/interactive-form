@@ -108,3 +108,26 @@ payment.addEventListener('change', e => {
         // display the element that matches
     selectedPayment.style.display = 'block';
 })
+
+//Form Validation
+//reference email element
+const email = document.getElementById('email');
+//reference credit card number element
+const cardNumber = document.getElementById('cc-num');
+//reference zipcode element
+const zipCode = document.getElementById('zip');
+//reference the CVV
+const cvv = document.getElementById('cvv');
+//reference the entire form
+const form = document.querySelector('form');
+//setting up an event listener on the submit event
+form.addEventListener('submit', e => {
+    //stop the default submission behavior
+    e.preventDefault();
+    //reference the Name field element
+    const nameField = name.value;
+    //test the name value against regex pattern
+    const nameIsValid = /^[a-zA-Z]+ ?[a-zA-Z]*? ?[a-zA-Z]*?$/.test(nameField);
+    
+
+})
