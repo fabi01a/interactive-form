@@ -57,3 +57,27 @@ design.addEventListener('change', e => {
         }
     }
 })
+
+//Register for Activities Section
+//referencing the 'register for activities' fieldset
+const activities = document.getElementById("activities");
+//referencing the total element
+const total = document.getElementById('activities-cost');
+//storing the calculated total cost of the activities
+let calculatedTotal = 0;
+//listen for change on the activities element
+activities.addEventListener('change', e => {
+    //reference the data-cost attribute of the event and convert it to a number from a string
+    const dataCost = parseInt(e.target.getAttribute('data-cost'), 10);
+    //check if the event has been checked
+    if (e.target.checked) {
+        //add the event's cost to the calculated total
+        calculatedTotal += dataCost
+    } else {
+        //otherwise subtract the event's cost from the calculated total
+        calculatedTotal -= dataCost
+    }
+    //update the innerHTMl total withthe new total cost
+    total.innerHTML = `Total: $${calculatedTotal}`;
+
+})
