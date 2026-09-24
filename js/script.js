@@ -81,3 +81,17 @@ activities.addEventListener('change', e => {
     total.innerHTML = `Total: $${calculatedTotal}`;
 
 })
+
+//Payment Info Section
+//referencing the payment options element
+const paymentOptions = document.getElementById("payment");
+//referencing the credit card element
+const creditCard = document.getElementById("credit-card");
+//referencing the paypal element
+const payPal = document.getElementById("paypal");
+//keep it hidden
+payPal.style.display = 'none';
+//referencing the bitcoin element
+const bitcoin = document.getElementById("bitcoin");
+//keep it hidden
+bitcoin.style.display = 'none';
