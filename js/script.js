@@ -45,7 +45,15 @@ design.addEventListener('change', e => {
         const eventValue = e.target.value;
         //storing the current color's data type
         const colorData = colorOptions[i].getAttribute('data-theme');
-        console.log(eventValue)
-        console.log(colorData)
+        //if the event and the current color are the same
+        if (eventValue === colorData) {
+            //show its color options
+            colorOptions[i].hidden = false;
+            colorOptions[i].selected = true;
+        } else {
+            //otherwise hide its color options
+            colorOptions[i].hidden = true;
+            colorOptions[i].selected = false;
+        }
     }
 })
