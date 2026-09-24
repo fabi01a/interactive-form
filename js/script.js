@@ -41,6 +41,7 @@ design.addEventListener('change', e => {
 
 //REGISTER FOR ACTIVITIES SECTION
 const activities = document.getElementById("activities");
+const activityCheckboxes = activities.querySelectorAll('input[type="checkbox"]');
 const total = document.getElementById('activities-cost');
 let calculatedTotal = 0;
 
@@ -100,7 +101,6 @@ function emailValidator() {
 //ACTIVITIES
 //creating a helper function to test checkbox activity
 function activitiesValidator() {
-    const activityCheckboxes = activities.querySelectorAll('input[type="checkbox"]');
     let activitiesIsValid = false;
     for (let i = 0; i < activityCheckboxes.length;i++) {
         if (activityCheckboxes[i].checked) {
@@ -109,7 +109,6 @@ function activitiesValidator() {
     }
     return activitiesIsValid;
 }
-
 
 //CREDITCARDS
 function cardNumberValidator() {
@@ -120,13 +119,13 @@ function cardNumberValidator() {
 //VALIDATE ZIPCODE
 function zipCodeValidator() {
     const zipCodeField = zipCode.value;
-    return zipCodeIsValid = /^\d{5}$/.test(zipCodeField);
+    return /^\d{5}$/.test(zipCodeField);
 }
 
 //VALIDATE CVV
 function cvvValidator() {
     const cvvField = cvv.value;
-    return cvvIsValid = /^\d{3}$/.test(cvvField);
+    return /^\d{3}$/.test(cvvField);
 }
 
 //FORM SUBMIT
@@ -137,21 +136,35 @@ form.addEventListener('submit', e => {
     }
     //EMAIL
     if (!emailValidator()) {
-        e.preventDefault
+        e.preventDefault();
     }
     //ACTIVIITES
     if(!activitiesValidator()) {
-        e.preventDefault
+        e.preventDefault();
     }
     if (paymentOptions.value === 'credit-card') {
+        //CREDIT CARD
         if (!cardNumberValidator()) {
             e.preventDefault();
         }
+        //ZIPCODE
         if (!zipCodeValidator()) {
             e.preventDefault();
+        //CVV
         }
         if (!cvvValidator()) {
             e.preventDefault();
         }
     }
 });
+
+//ACCESSIBILITY
+for (let i = 0; i < activityCheckboxes.length;i++) {
+    activityCheckboxes[i].addEventListener('focus', e => {
+        e.target.parentNode.classList.add('focus');
+    });
+    activityCheckboxes[i].addEventListener('blur', e => {
+        e.target.parentNode.classList.remove('focus');
+    
+    });
+}
