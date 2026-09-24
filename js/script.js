@@ -122,12 +122,73 @@ const cvv = document.getElementById('cvv');
 const form = document.querySelector('form');
 //setting up an event listener on the submit event
 form.addEventListener('submit', e => {
-    //stop the default submission behavior
-    e.preventDefault();
+    //NAME
     //reference the Name field element
     const nameField = name.value;
     //test the name value against regex pattern
     const nameIsValid = /^[a-zA-Z]+ ?[a-zA-Z]*? ?[a-zA-Z]*?$/.test(nameField);
-    
+    //if the test results are valid
+    if (!nameIsValid) {
+        // prevent the form from submitting
+        e.preventDefault();
+    } 
+    //EMAIL
+    //reference the email element
+    const emailField = email.value;
+    //test the email value against regex pattern
+    const emailIsValid = /^[^@]+@[^@]+\.[a-zA-Z]{2,}$/.test(emailField);
+    //if the test results are valid
+    if (!emailIsValid) {
+        // prevent the form from submitting
+        e.preventDefault();
+    }
+    //ACTIVITIES
+    //select the checkbox inputs inside of activities
+    const activityCheckboxes = activities.querySelectorAll('input[type="checkbox"]');
+    //boolean flag to keep track if user has selected at least one activity
+    let activitiesIsValid = false;
+    //loop over the checked boxes
+    for (let i = 0; i < activityCheckboxes.length;i++) {
+        //if any boxes are checked
+        if (activityCheckboxes[i].checked) {
+            //update the flag to true
+            activitiesIsValid = true;
+        }
+        //if there are no checked boxes
+        if (!activitiesIsValid) {
+            // prevent the form from submitting
+            e.preventDefault();
+        }
+    }
+    //CREDITCARDS
+    //check if the user actually chose creditcard
+    if (payment.value === 'credit-card') {
+        //validate cardNumber
+        const cardNumberField = cardNumber.value;
+        const cardNumberIsValid = /^\d{13,16}$/.test(cardNumberField);
+        //if cardNumberIsValid is not valid
+        if(!cardNumberIsValid){
+            //prevent the form from submitting
+            e.preventDefault();
+        }
 
+        //validate zipcode
+        const zipCodeField = zipCode.value;
+        const zipCodeIsValid = /^\d{5}$/.test(zipCodeField);
+        //if zipCodeIsValid is not valid
+        if(!zipCodeIsValid) {
+            //prevent the form from submitting
+            e.preventDefault();
+        }
+
+        //validate cvv
+        const cvvField = cvv.value;
+        const cvvIsValid = /^\d{3}$/.test(cvvField);
+        //if cvvIsValid is not valid
+        if(!cvvIsValid) {
+            //prevent the form from submitting
+            e.preventDefault();
+        }
+
+    }
 })
