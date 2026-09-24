@@ -97,3 +97,14 @@ const bitcoin = document.getElementById("bitcoin");
 bitcoin.style.display = 'none';
 //setting credit card as default option
 paymentOptions.children[1].setAttribute("selected", "");
+//setting up an event listener on the change event
+payment.addEventListener('change', e => {
+    //hide the payment options
+    creditCard.style.display = 'none';
+    payPal.style.display = 'none';
+    bitcoin.style.display = 'none';
+    //the event element
+    const selectedPayment = document.getElementById(e.target.value);
+        // display the element that matches
+    selectedPayment.style.display = 'block';
+})
